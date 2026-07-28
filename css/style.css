@@ -226,6 +226,14 @@ img { max-width: 100%; display: block; }
   .hero-video-frame { max-height: 420px; }
 }
 
+/* Carousel crossfade — applied to the wrapper container while swapping slides */
+.video-fading {
+  opacity: 0;
+}
+#hero-video-container {
+  transition: opacity 0.2s ease;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;

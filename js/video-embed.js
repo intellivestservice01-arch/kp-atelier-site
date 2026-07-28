@@ -92,21 +92,72 @@ function loadEmbedScript(type) {
   document.body.appendChild(script);
 }
 
-// Fetches videos for a given placement and renders the first one into a container.
+// ============================================================
+// Video carousel — cycles through every active video for a placement.
+// - "file" videos advance automatically when they actually finish playing
+//   (listens for the real 'ended' event, so it's exact).
+// - youtube/instagram/tiktok embeds don't give us a reliable "finished"
+//   signal without much heavier SDK integration, so those advance after a
+//   fixed dwell time instead (still feels like a carousel, just time-based).
+// Loops back to the first video after the last one.
+// ============================================================
+
+const VideoCarousel = {
+  EMBED_DWELL_MS: 15000, // how long to show a youtube/instagram/tiktok slide before advancing
+
+  async start(placement, containerEl, frameClass) {
+    if (!containerEl) return;
+    let videos = [];
+    try {
+      const data = await apiRequest(`/videos?placement=${placement}`);
+      videos = data.videos || [];
+    } catch (err) {
+      console.warn("Could not load videos:", err.message);
+      return;
+    }
+    if (!videos.length) return; // nothing to show, leave whatever default markup is already there
+
+    let index = 0;
+    let advanceTimer = null;
+
+    const showCurrent = () => {
+      clearTimeout(advanceTimer);
+      const video = videos[index];
+
+      containerEl.classList.add("video-fading");
+      setTimeout(() => {
+        containerEl.innerHTML = renderVideoEmbed(video, frameClass);
+        containerEl.classList.remove("video-fading");
+
+        if (video.video_type === "instagram") loadEmbedScript("instagram");
+        if (video.video_type === "tiktok") loadEmbedScript("tiktok");
+
+        if (video.video_type === "file") {
+          const videoEl = containerEl.querySelector("video");
+          if (videoEl) {
+            videoEl.addEventListener("ended", advance, { once: true });
+          } else {
+            // safety net in case the element didn't mount for some reason
+            advanceTimer = setTimeout(advance, this.EMBED_DWELL_MS);
+          }
+        } else {
+          // youtube/instagram/tiktok/fallback — time-based advance
+          advanceTimer = setTimeout(advance, this.EMBED_DWELL_MS);
+        }
+      }, 220); // matches the fade-out transition duration in CSS
+    };
+
+    const advance = () => {
+      index = (index + 1) % videos.length;
+      showCurrent();
+    };
+
+    showCurrent();
+  },
+};
+
+// Fetches videos for a given placement and starts the carousel in a container.
 // Call this from any page that has a spot for a video (hero, gallery, etc).
 async function loadPlacementVideo(placement, containerEl, frameClass) {
-  if (!containerEl) return;
-  try {
-    const data = await apiRequest(`/videos?placement=${placement}`);
-    if (!data.videos || !data.videos.length) return; // nothing to show, leave container empty
-
-    const video = data.videos[0];
-    containerEl.innerHTML = renderVideoEmbed(video, frameClass);
-
-    if (video.video_type === "instagram") loadEmbedScript("instagram");
-    if (video.video_type === "tiktok") loadEmbedScript("tiktok");
-  } catch (err) {
-    // Silent — a missing/unreachable video shouldn't break the page
-    console.warn("Could not load video:", err.message);
-  }
+  VideoCarousel.start(placement, containerEl, frameClass);
 }
