@@ -98,7 +98,7 @@ const ChatWidget = {
 
   connectSocket() {
     if (this.socket) return;
-    this.socket = io("http://localhost:5000");
+    this.socket = io("https://kp-atelier-backend.onrender.com");
     this.socket.on("connect", () => {
       // join once we know which chat thread we have (after first message load)
     });

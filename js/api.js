@@ -2,7 +2,7 @@
 // KP ATELIER — public site shared client
 // ============================================================
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://kp-atelier-backend.onrender.com/api";
 const WHATSAPP_NUMBER = "2349010578554"; // no + or leading 0, wa.me format
 
 const Theme = {
@@ -43,7 +43,7 @@ async function apiRequest(path, { method = "GET", body, isForm = false } = {}) {
 function fullImageUrl(path) {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  return `http://localhost:5000${path}`;
+  return `https://kp-atelier-backend.onrender.com${path}`;
 }
 
 function formatMoney(amount) {
