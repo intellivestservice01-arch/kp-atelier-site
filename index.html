@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KP Atelier — Thoughtfully Made Clothing</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<section class="hero hero-split">
+  <div class="hero-bg-glow"></div>
+  <div class="container hero-split-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">KP Atelier® &nbsp;·&nbsp; Afro Streetwear &nbsp;•&nbsp; Premium Quality</span>
+      <h1>Wear Confidence.<br/>Wear KP.</h1>
+      <p>Inspired by African culture. Built for the streets.</p>
+      <div class="hero-actions">
+        <a href="shop.html" class="btn btn-gold">Shop Collection</a>
+        <a href="#categories" class="btn btn-glass">Browse Categories</a>
+      </div>
+    </div>
+    <div id="hero-video-container">
+      <div class="hero-video-frame glass">
+        <video autoplay muted loop playsinline poster="assets/hero-video-poster.jpg">
+          <source src="assets/hero-video.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-video-shine"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section vision-section">
+  <div class="container">
+    <div class="vision-panel glass">
+      <span class="eyebrow">Our Vision</span>
+      <p class="vision-copy">At KP Atelier, streetwear is more than fashion—it's a mindset. We create timeless pieces that combine premium craftsmanship with modern design for those who lead, inspire, and never follow.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">The Wardrobe</span>
+        <h2>Shop by Category</h2>
+      </div>
+    </div>
+    <div class="category-grid" id="category-grid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Just In</span>
+        <h2>New Arrivals</h2>
+      </div>
+      <a href="shop.html?filter=new">View all &rarr;</a>
+    </div>
+    <div class="product-grid" id="new-arrivals-grid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Word on the Street</span>
+        <h2>Loved by Customers</h2>
+      </div>
+      <button class="btn btn-glass" id="open-review-modal-btn">Leave a Review</button>
+    </div>
+    <div id="reviews-summary"></div>
+    <div class="reviews-grid" id="reviews-grid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<!-- Review submission modal -->
+<div class="site-modal-overlay hidden" id="review-modal">
+  <div class="site-modal glass">
+    <button class="site-modal-close" id="close-review-modal">&times;</button>
+    <span class="eyebrow">Share Your Experience</span>
+    <h3>Leave a Review</h3>
+    <form id="review-form">
+      <div class="site-field">
+        <label>Your name</label>
+        <input type="text" id="review-name" required />
+      </div>
+      <div class="site-field">
+        <label>Rating</label>
+        <div class="star-input" id="star-input">
+          <span data-value="1">&#9733;</span><span data-value="2">&#9733;</span><span data-value="3">&#9733;</span><span data-value="4">&#9733;</span><span data-value="5">&#9733;</span>
+        </div>
+        <input type="hidden" id="review-rating" value="5" />
+      </div>
+      <div class="site-field">
+        <label>Your review</label>
+        <textarea id="review-body" required placeholder="Tell us what you thought..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block" id="submit-review-btn">Submit Review</button>
+      <p class="site-field-hint">Reviews are checked before they go live, so it may take a moment to appear.</p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/product-card.js"></script>
+<script src="js/site-layout.js"></script>
+<script src="js/cart-drawer.js"></script>
+<script src="js/chat-widget.js"></script>
+<script src="js/video-embed.js"></script>
+<script src="js/reviews.js"></script>
+<script src="js/home.js"></script>
+<script>
+  loadPlacementVideo("hero", document.getElementById("hero-video-container"), "hero-video-frame");
+  Reviews.initSection({ gridId: "reviews-grid", summaryId: "reviews-summary" });
+  Reviews.initModal();
+</script>
+</body>
+</html>

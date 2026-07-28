@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wishlist — KP Atelier</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Saved For Later</span><h2>Your Wishlist</h2></div></div>
+    <div class="product-grid" id="wishlist-grid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/product-card.js"></script>
+<script src="js/site-layout.js"></script>
+<script src="js/cart-drawer.js"></script>
+<script src="js/chat-widget.js"></script>
+<script>
+  (async () => {
+    await SiteLayout.init("shop");
+    const grid = document.getElementById("wishlist-grid");
+    const ids = Wishlist.get();
+
+    if (!ids.length) {
+      grid.innerHTML = `<div class="empty-state">No saved items yet. Tap the heart icon on any product to save it here.</div>`;
+      return;
+    }
+
+    try {
+      const results = await Promise.all(ids.map((id) => apiRequest(`/products/${id}`).catch(() => null)));
+      const products = results.filter(Boolean).map((r) => r.product);
+      if (!products.length) {
+        grid.innerHTML = `<div class="empty-state">Your saved items are no longer available.</div>`;
+        return;
+      }
+      grid.innerHTML = products.map(renderProductCard).join("");
+    } catch (err) {
+      grid.innerHTML = `<div class="empty-state">Could not load wishlist.</div>`;
+    }
+  })();
+</script>
+</body>
+</html>

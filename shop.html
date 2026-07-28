@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shop — KP Atelier</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Full Collection</span>
+        <h2 id="shop-title">Shop All</h2>
+      </div>
+    </div>
+
+    <div class="filters-bar glass">
+      <select id="filter-category"><option value="">All Categories</option></select>
+      <div class="price-range">
+        <input type="number" id="filter-min-price" placeholder="Min ₦" />
+        <span class="text-muted">–</span>
+        <input type="number" id="filter-max-price" placeholder="Max ₦" />
+      </div>
+      <button class="btn btn-outline btn-sm" id="apply-filters-btn">Apply</button>
+      <button class="btn btn-sm" id="clear-filters-btn" style="color:var(--text-muted);">Clear</button>
+    </div>
+
+    <div class="product-grid" id="shop-grid">
+      <div class="spinner"></div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/product-card.js"></script>
+<script src="js/site-layout.js"></script>
+<script src="js/cart-drawer.js"></script>
+<script src="js/chat-widget.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Track Your Order — KP Atelier</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<section class="section" style="padding-top:60px;">
+  <div class="container">
+    <div class="text-center mb-24">
+      <span class="eyebrow" style="display:block; margin-bottom:8px;">Delivery Status</span>
+      <h2 style="font-family:var(--font-display); font-size:32px;">Track Your Order</h2>
+      <p class="text-muted" style="max-width:400px; margin:14px auto 0;">Enter the tracking ID shared with you in chat once your order was confirmed.</p>
+    </div>
+
+    <div class="track-search mt-40">
+      <input type="text" id="track-input" placeholder="e.g. TRK-8F3K9QRT" />
+      <button class="btn btn-gold" id="track-btn">Track</button>
+    </div>
+
+    <div id="track-result"></div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/site-layout.js"></script>
+<script src="js/cart-drawer.js"></script>
+<script src="js/chat-widget.js"></script>
+<script src="js/track.js"></script>
+</body>
+</html>

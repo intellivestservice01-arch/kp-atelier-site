@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Bag — KP Atelier</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<section class="section" style="padding-top:40px;">
+  <div class="container">
+    <div class="section-head"><div><h2>Your Bag</h2></div></div>
+
+    <div id="checkout-view">
+      <div class="checkout-layout">
+        <div>
+          <div id="checkout-items"></div>
+        </div>
+
+        <div class="glass" style="border-radius:14px; padding:26px; height:fit-content;">
+          <h3 style="font-family:var(--font-display); font-size:19px; margin-bottom:18px;">Checkout Details</h3>
+          <form id="checkout-form">
+            <div class="field">
+              <label>Full name</label>
+              <input type="text" id="c-name" required />
+            </div>
+            <div class="field">
+              <label>Phone number</label>
+              <input type="tel" id="c-phone" required placeholder="e.g. 08012345678" />
+            </div>
+            <div class="field">
+              <label>Email (optional)</label>
+              <input type="email" id="c-email" />
+            </div>
+
+            <label class="checkbox-field mb-24">
+              <input type="checkbox" id="c-create-account" />
+              Create an account so I can track my orders later
+            </label>
+
+            <div class="field" id="c-password-field" style="display:none;">
+              <label>Choose a password</label>
+              <input type="password" id="c-password" />
+            </div>
+
+            <div class="cart-total mb-24">
+              <span>Total</span>
+              <span id="checkout-total">₦0</span>
+            </div>
+
+            <p class="text-muted" style="font-size:12px; margin-bottom:18px;">
+              No online payment is taken here. After you submit, our team will confirm your order and share payment details directly in chat.
+            </p>
+
+            <button type="submit" class="btn btn-gold btn-block" id="place-order-btn">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="empty-cart-view" class="empty-state" style="display:none;">
+      Your bag is empty.<br/>
+      <a href="shop.html" class="btn btn-gold" style="margin-top:20px;">Browse the Shop</a>
+    </div>
+
+    <div id="order-success-view" style="display:none;">
+      <div class="glass text-center" style="border-radius:14px; padding:50px 30px; max-width:480px; margin:0 auto;">
+        <div style="font-size:40px; margin-bottom:16px;">✦</div>
+        <h2 style="font-family:var(--font-display); margin-bottom:12px;">Order Received</h2>
+        <p class="text-muted mb-24">Order reference: <strong id="success-order-ref" style="color:var(--gold);"></strong></p>
+        <p class="text-muted mb-24" style="font-size:13.5px;">Our team will reach out in chat shortly to confirm your price and delivery details.</p>
+        <button class="btn btn-gold btn-block" id="open-chat-from-success">Open Chat</button>
+        <a href="shop.html" class="btn btn-outline btn-block mt-40">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-root"></div>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/site-layout.js"></script>
+<script src="js/cart-drawer.js"></script>
+<script src="js/chat-widget.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
